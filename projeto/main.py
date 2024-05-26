@@ -73,7 +73,7 @@ while cap.isOpened():
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     # Mostrar a imagem com as detecções
-    cv2.imshow('MediaPipe Face Mesh', image)
+    cv2.imshow('Detector de Sono ao Volante', image)
 
     # Sair do loop ao pressionar 'Esc'
     if cv2.waitKey(5) & 0xFF == 27:

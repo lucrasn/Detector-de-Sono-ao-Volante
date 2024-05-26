@@ -1,0 +1,54 @@
+# Detector de Sono ao Volante
+
+## OpenCV (import cv2)
+    OpenCV (Open Source Computer Vision Library) é uma biblioteca de visão computacional e aprendizado de máquina que contém várias funções para processamento de imagens e vídeos.
+        - Esta sendo usada para capturar o vídeo da câmera, converte a cor da imagem, exibe a imagem processada e aguarda a entrada do usuário para encerrar a aplicação.
+
+### Funções no Código:
+
+    - Captura de Vídeo: Usa a câmera do dispositivo para capturar o vídeo.
+        cap: cv2.VideoCapture(0)
+
+    - Leitura de Frames: Lê os frames da câmera.
+        success, image = cap.read()
+
+    - Conversão de Cores: Converte a imagem de BGR (padrão do OpenCV) para RGB (necessário para o MediaPipe) e de volta para BGR.
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
+    - Exibição de Imagem: Exibe a imagem processada em uma janela.
+        cv2.imshow('Detector de Sono ao Volante', image)
+
+    - Detecção de Tecla para Encerrar: Espera por uma tecla pressionada (neste caso, 'Esc' para encerrar).
+        if cv2.waitKey(5) & 0xFF == 27:
+            break
+
+## MediaPipe (import mediapipe as mp)
+    MediaPipe é uma biblioteca desenvolvida pelo Google para a implementação de pipelines de processamento de mídia, como a detecção de poses, rostos, mãos, etc. É altamente eficiente e otimizada para trabalhar em tempo real.
+        - Esta sendo usada para detectar e processar a malha facial em tempo real, permitindo identificar os pontos específicos do rosto, como os olhos.
+
+### Funções do Código:
+
+    - Inicialização do Face Mesh: Inicializa o módulo de detecção de malha facial do MediaPipe.
+        mp_face_mesh = mp.solutions.face_mesh
+        face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+
+    - Desenho da Malha Facial: Utiliza utilitários de desenho para desenhar a malha facial sobre a imagem.
+        mp_drawing = mp.solutions.drawing_utils
+        mp_drawing_styles = mp.solutions.drawing_styles
+
+    - Processamento da Imagem: Processa a imagem para detectar os pontos da malha facial.
+        results = face_mesh.process(image)
+
+    - Desenho dos Pontos e Conexões: Desenha os pontos da malha facial e suas conexões na imagem.
+        mp_drawing.draw_landmarks(image=image, landmark_list=face_landmarks, connections=mp_face_mesh.FACEMESH_TESSELATION, landmark_drawing_spec=None, connection_drawing_spec=mp_drawing_styles.get_default_face_mesh_tesselation_style())
+
+## Numpy (import numpy as np)
+    NumPy é uma biblioteca fundamental para a computação científica em Python. Ela oferece suporte para arrays e matrizes multidimensionais, além de funções matemáticas de alto nível para operar nesses arrays.
+        - Esta sendo usada para realizar cálculos matemáticos para determinar a distância entre pontos faciais, ajudando a identificar se os olhos estão fechados.
+
+### Funções do Código:
+    
+    - Cálculo de Distância Euclidiana: Utiliza NumPy para calcular a distância euclidiana entre dois pontos (usado para determinar se os olhos estão fechados).
+        def euclidean_distance(point1, point2):
+            return np.linalg.norm(np.array([point1.x, point1.y]) - np.array([point2.x, point2.y]))
