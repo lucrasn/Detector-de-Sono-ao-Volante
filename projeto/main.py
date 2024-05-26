@@ -11,11 +11,9 @@ face_mesh = mp_face_mesh.FaceMesh(
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 
-
 # Função para calcular a distância euclidiana entre dois pontos
 def euclidean_distance(point1, point2):
     return np.linalg.norm(np.array([point1.x, point1.y]) - np.array([point2.x, point2.y]))
-
 
 # Função para verificar se os olhos estão fechados
 def are_eyes_closed(landmarks):
@@ -29,14 +27,17 @@ def are_eyes_closed(landmarks):
     right_eye_distance = euclidean_distance(right_eye_top, right_eye_bottom)
 
     # Limite para considerar o olho fechado (ajuste conforme necessário)
-    # Esse limite de 0.025 está perfeito para uma distancia rezoavelmente perto, o suficiente para o nosso contexto
     eye_closed_threshold = 0.025
 
     return left_eye_distance < eye_closed_threshold and right_eye_distance < eye_closed_threshold
 
-
 # Capturar vídeo da câmera
 cap = cv2.VideoCapture(0)
+
+# Verifique se a câmera foi aberta corretamente
+if not cap.isOpened():
+    print("Erro ao abrir a câmera.")
+    exit()
 
 while cap.isOpened():
     success, image = cap.read()
