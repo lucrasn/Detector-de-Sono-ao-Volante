@@ -11,6 +11,7 @@ Projeto feito em python para o reconhecimento de motoristas que estão dormindo 
 ### Reconhecimento e Medição
 - yuurixrl
 - lucrasn
+  
 ### Processamento de Dados
 - georiSamuel
 - robertozoy
