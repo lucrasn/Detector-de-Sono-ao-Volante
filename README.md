@@ -21,6 +21,4 @@ Projeto feito em python para o reconhecimento de motoristas que estão dormindo 
 
 - [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide?hl=pt-br)
 - [OpenCV](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
-- [PyDub](https://github.com/jiaaro/pydub)
-- [Time](https://docs.python.org/pt-br/3/library/time.html)
 - [Pygame](https://www.pygame.org/docs/)
