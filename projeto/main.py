@@ -50,10 +50,12 @@ while (webcam.isOpened()) and (not flag):
 
             # Verificar se os olhos estão fechados
             # É AQUI DENTRO QUE VAI FICAR O PROGRAMA DE TOCAR O ALARME!!
-            if of.are_eyes_closed(face_landmarks.landmark):
+            if of.if_eyes_closed(face_landmarks.landmark):
+                # print(of.if_eyes_closed(face_landmarks.landmark))
                 cv2.putText(image, 'Dormindo', (50, 50),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
             else:
+                # print(of.if_eyes_closed(face_landmarks.landmark))
                 cv2.putText(image, 'Acordado', (50, 50),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
