@@ -34,5 +34,3 @@ def are_eyes_closed(landmarks):
     eye_closed_threshold = 0.025
 
     return left_eye_distance < eye_closed_threshold and right_eye_distance < eye_closed_threshold
-
-print(left_eye_top = landmarks[159])
