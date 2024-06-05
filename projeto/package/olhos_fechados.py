@@ -26,7 +26,8 @@ def if_eyes_closed(landmarks):
     retunr : retorna um valor booleano (olhos fechados == True e olhos abertos == False)
     '''
 
-    # estamos acessando o ponto referência da malha facial referente a cada parte do olho que será analisado
+    # estamos acessando o ponto referêncial da malha facial referente a cada parte do olho que será analisado
+    # essas variáveis representam um ponto/ coordenada de um plano
     olho_esquerdo_top = landmarks[159]
     olho_esquerdo_bottom = landmarks[145]
     olho_direto_top = landmarks[386]
