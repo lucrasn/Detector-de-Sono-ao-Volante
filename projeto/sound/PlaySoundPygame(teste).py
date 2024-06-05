@@ -34,19 +34,19 @@ def capture_frames(webcam):
     while alarm:
         ret, frame = webcam.read()  # Captura um frame da webcam
         if not ret:
-            print("Erro ao capturar o frame.")
-            break
-
-        cv2.imshow("Webcam Georis", frame)  # Exibe o frame na janela
-
-        key = cv2.waitKey(5)  # Captura a tecla pressionada
-        if key == 27:  # Tecla 'esc' para encerrar
             alarm = False
+            print("Erro ao capturar o frame.")
         else:
-            current_time = pg.time.get_ticks()
-            if current_time - start_time >= 10000:  # 10 segundos passados
-                play_sound("alarm.mp3")
-                start_time = pg.time.get_ticks()  # Reinicia o tempo
+            cv2.imshow("Webcam Georis", frame)  # Exibe o frame na janela
+
+            key = cv2.waitKey(5)  # Captura a tecla pressionada
+            if key == 27:  # Tecla 'esc' para encerrar
+                alarm = False
+            else:
+                current_time = pg.time.get_ticks()
+                if current_time - start_time >= 10000:  # 10 segundos passados
+                    play_sound("alarm.mp3")
+                    start_time = pg.time.get_ticks()  # Reinicia o tempo
 
     # Libera a captura e fecha as janelas
     webcam.release()
@@ -63,4 +63,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
