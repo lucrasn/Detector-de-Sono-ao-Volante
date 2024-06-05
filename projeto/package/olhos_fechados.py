@@ -1,17 +1,20 @@
 import numpy as np
 
 
-# Função para calcular a distância euclidiana entre dois pontos -> √((x1 – x2)² + (y1 – y2)²)
-    # Calcula a distância euclidiana entre o 'point1' e o 'point2'
-        # o 'point1' será o ponto superior do olho e o 'point2' será o inferior
-    # Criamos um vetor de duas dimensões com as coordenadas 'x' e 'y' com 'np.array([x, y])
-        # Como estamos utilizando uma malha facial com o Face Mesh cada um dos 468 pontos tem uma coordenada (x, y)
+# Função para calcular a distância euclidiana entre dois pontos -> √((x1 – x2)² + (y1 – y2)²);
 def distancia_euclidiana(point1, point2):
     '''
-    point1 : 
-    point2 :
-    return :
+    point1 : coordenada do parte superior do olho
+    point2 : coordenada da parte inferior do olho
+    return : calculo da distancia entre os pontos 'point1' e 'point2'
     '''
+
+    # Criamos um vetor de duas dimensões com as coordenadas 'x' e 'y' com 'np.array([x, y]);
+        # Como estamos utilizando uma malha facial com o Face Mesh cada um dos 468 pontos tem uma coordenada (x, y);
+        # A função np.array() cria um array a partir de sequência de dados, podendo ser uma lista, ou tupla, ...;
+            # Quando usamos essa função juntamente dos parâmetros passamos os atributos 'x' e 'y';
+                # Para pegar reespectivamente os valores x e y dos pontos point1 e do point2;
+    # Com os vetores em mão fazemos a diferença entre eles para calculamos a norma euclidiana com a função "np.linalg.norm()"
     return np.linalg.norm(np.array([point1.x, point1.y]) - np.array([point2.x, point2.y]))
 
 

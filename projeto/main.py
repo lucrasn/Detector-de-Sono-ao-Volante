@@ -49,6 +49,7 @@ while (webcam.isOpened()) and (not flag):
                 connection_drawing_spec=mp_drawing_styles.get_default_face_mesh_tesselation_style())
 
             # Verificar se os olhos estão fechados
+            # É AQUI DENTRO QUE VAI FICAR O PROGRAMA DE TOCAR O ALARME!!
             if of.are_eyes_closed(face_landmarks.landmark):
                 cv2.putText(image, 'Dormindo', (50, 50),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
