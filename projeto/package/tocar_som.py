@@ -4,6 +4,7 @@ import time
 
 def play_sound(sound_file):
     '''
+    sound_file : caminho do arquivo de áudio
     Toca um arquivo de áudio (mp3, wav...) por completo
     '''
     pg.mixer.init()  # Inicializa o módulo de mixer do Pygame
@@ -12,4 +13,5 @@ def play_sound(sound_file):
 
     # Loop para continuar executando enquanto a música está tocando
     while pg.mixer.music.get_busy():  # Verifica se a música está tocando
-        time.sleep(0.1)  # Espera um pouco antes de verificar novamente, para evitar sobrevargar
+        time.sleep(0.1)  # Espera um pouco antes de verificar novamente, para evitar sobrecarregar
+

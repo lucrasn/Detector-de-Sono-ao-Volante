@@ -1,6 +1,6 @@
 import cv2
 import mediapipe as mp
-from package import olhos_fechados as of
+from package import olhos_fechados as of, tocar_som as play
 
 # Inicializar MediaPipe Face Mesh;
 # variável para facilitar as diversas chamadas a esse módulo;
