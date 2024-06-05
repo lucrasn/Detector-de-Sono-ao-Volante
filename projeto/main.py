@@ -21,7 +21,9 @@ if not webcam.isOpened():
     print("Erro ao abrir a câmera.")
     exit()
 
-while webcam.isOpened():
+flag = False
+
+while (webcam.isOpened()) and (not flag):
     success, image = webcam.read()
     if not success:
         print("Ignorando frame vazio da câmera.")
@@ -59,7 +61,7 @@ while webcam.isOpened():
 
     # Sair do loop ao pressionar 'Esc'
     if cv2.waitKey(5) & 0xFF == 27:
-        break
+        flag = True
 
 # Liberar a captura e fechar janelas
 webcam.release()
