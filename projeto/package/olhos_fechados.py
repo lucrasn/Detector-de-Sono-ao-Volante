@@ -21,19 +21,19 @@ def distancia_euclidiana(point1, point2):
 # Função para verificar se os olhos estão fechados
 def are_eyes_closed(landmarks):
     '''
-    landmarks : 
-    retunr :
+    landmarks : pontos chaves da malha facial
+    retunr : retorna um valor booleano (olhos fechados == True e olhos abertos == False)
     '''
-    left_eye_top = landmarks[159]
-    left_eye_bottom = landmarks[145]
-    right_eye_top = landmarks[386]
-    right_eye_bottom = landmarks[374]
+    olho_esquerdo_top = landmarks[159]
+    olho_esquerdo_bottom = landmarks[145]
+    olho_direto_top = landmarks[386]
+    olho_direto_bottom = landmarks[374]
 
     # Distâncias euclidianas entre os pontos dos olhos
-    left_eye_distance = distancia_euclidiana(left_eye_top, left_eye_bottom)
-    right_eye_distance = distancia_euclidiana(right_eye_top, right_eye_bottom)
+    distancia_olho_esquerdo = distancia_euclidiana(olho_esquerdo_top, olho_esquerdo_bottom)
+    distancia_olho_direito = distancia_euclidiana(olho_direto_top, olho_direto_bottom)
 
-    # Limite para considerar o olho fechado (ajuste conforme necessário)
-    eye_closed_threshold = 0.025
+    # Limite para considerar o olho fechado
+    limiar_de_olho_fechado = 0.025
 
-    return left_eye_distance < eye_closed_threshold and right_eye_distance < eye_closed_threshold
+    return (distancia_olho_esquerdo < limiar_de_olho_fechado) and (distancia_olho_direito < limiar_de_olho_fechado)
