@@ -1,47 +1,66 @@
-import cv2, pygame as pg
-
+import cv2
+import pygame as pg
+import time
 
 def play_sound(sound_file):
     '''
-    Toca algum arquivo de áudio (mp3, wav...) por completo
+    Toca um arquivo de áudio (mp3, wav...) por completo
     '''
-    
-    pg.mixer.init() #inicializa o módulos de mixer do pygame
-    pg.mixer.music.load(sound_file) #Carrega o arquivo de som
-    pg.mixer.music.play() #Toca o arquivo
+    pg.mixer.init()  # Inicializa o módulo de mixer do Pygame
+    pg.mixer.music.load(sound_file)  # Carrega o arquivo de som
+    pg.mixer.music.play()  # Toca o arquivo
 
-    # Loop principal para continuar executando, pois o "pg.mixer.music.play()" toca a música de forma paralela ao código, então tenho que delimitar um loop
-    while pg.mixer.music.get_busy(): #Verifica se a música está tocando
-        pass  # Apenas continua o loop
+    # Loop para continuar executando enquanto a música está tocando
+    while pg.mixer.music.get_busy():  # Verifica se a música está tocando
+        time.sleep(0.1)  # Espera um pouco antes de verificar novamente
 
+def initialize_webcam():
+    '''
+    Inicializa a webcam e retorna o objeto de captura de vídeo
+    '''
+    webcam = cv2.VideoCapture(0)
+    if not webcam.isOpened():
+        print("Erro ao abrir a webcam.")
+        return None
+    return webcam
 
-###bCORPO DO CÓDIGO (usei um exemplo de um código que só abre a câmera) ###
+def capture_frames(webcam):
+    '''
+    Captura frames da webcam e os exibe em uma janela
+    '''
+    alarm = True
+    start_time = pg.time.get_ticks()  # Marca o tempo inicial
 
-# Inicializa a captura de vídeo da webcam
-webcam = cv2.VideoCapture(0)
-#Variável booleana para encerrar o loop de música e webcam
-alarm = True
+    while alarm:
+        ret, frame = webcam.read()  # Captura um frame da webcam
+        if not ret:
+            print("Erro ao capturar o frame.")
+            break
 
-if webcam.isOpened():#Verifica se a Webcam está aberta e pronta
-    status, frame = webcam.read()
-    while alarm and status:
-        pg.init() #Incia os módulos do pygame e também é o marco temporal
-        status, frame = webcam.read() #usado para capturar (ler) um novo frame do fluxo de vídeo proveniente de uma fonte de vídeo, retorna uma tupla com um valor booleano(status) e o frame capturado (frame)
-        if not status:
+        cv2.imshow("Webcam Georis", frame)  # Exibe o frame na janela
+
+        key = cv2.waitKey(5)  # Captura a tecla pressionada
+        if key == 27:  # Tecla 'esc' para encerrar
             alarm = False
         else:
-            # Exibe o frame na janela "Webcam Georis"
-            cv2.imshow("Webcam Georis", frame)
-            # Captura a tecla "esc" quando pressionada e encerra a webcam
-            key = cv2.waitKey(5)
-            if key == 27:
-                alarm = False
-            else:
-                # Verifica se deve começar a tocar o som
-                if pg.time.get_ticks() >= 10000: #função do pygame que analisa o tempo em milissegundos desde que foi dado o "pg.init()"
-                    play_sound("alarm.mp3")
-                    pg.quit() #Desliga o pygame e consequentemente reinica o loop
+            current_time = pg.time.get_ticks()
+            if current_time - start_time >= 10000:  # 10 segundos passados
+                play_sound("alarm.mp3")
+                start_time = pg.time.get_ticks()  # Reinicia o tempo
 
+    # Libera a captura e fecha as janelas
+    webcam.release()
+    cv2.destroyAllWindows()
 
-# Libera a captura e gravação de vídeo e fecha todas as janelas
-cv2.destroyAllWindows()
+def main():
+    pg.init()  # Inicializa o Pygame
+    webcam = initialize_webcam()  # Inicializa a webcam
+
+    if webcam:
+        capture_frames(webcam)  # Captura e exibe frames da webcam
+
+    pg.quit()  # Encerra o Pygame
+
+if __name__ == "__main__":
+    main()
+
