@@ -29,3 +29,4 @@
 - [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide?hl=pt-br)
 - [OpenCV](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
 - [Pygame](https://www.pygame.org/docs/)
+- [Numpy](https://numpy.org/doc/stable/user/index.html#user)
