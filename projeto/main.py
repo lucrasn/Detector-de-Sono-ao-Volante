@@ -1,10 +1,13 @@
 import cv2
 import mediapipe as mp
-from package import olhos_fechados as os
+from package import olhos_fechados as of
 
 # Inicializar MediaPipe Face Mesh
-mp_face_mesh = mp.solutions.face_mesh
-face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+# variável para facilitar as diversas chamadas a esse módulo
+mp_face_mesh = mp.solutions.face_mesh # atribuindo o módulo 'fase_mesh' do mediapipe à esta variável
+# outra variável de mesmo intuito mas já chamando a função 'FaceMesh()'
+    # mudando os parâmetros da função 'FaceMesh()' de confiança mínima de detecção e a de confiança mínima de rastreamento para 60%
+face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=0.6, min_tracking_confidence=0.6)
 
 # Inicializar desenho de utilidades MediaPipe
 mp_drawing = mp.solutions.drawing_utils
@@ -44,7 +47,7 @@ while webcam.isOpened():
                 connection_drawing_spec=mp_drawing_styles.get_default_face_mesh_tesselation_style())
 
             # Verificar se os olhos estão fechados
-            if os.are_eyes_closed(face_landmarks.landmark):
+            if of.are_eyes_closed(face_landmarks.landmark):
                 cv2.putText(image, 'Dormindo', (50, 50),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
             else:

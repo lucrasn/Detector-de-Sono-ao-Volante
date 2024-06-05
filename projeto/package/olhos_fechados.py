@@ -1,8 +1,11 @@
 import numpy as np
 
 
-# Função para calcular a distância euclidiana entre dois pontos
-def euclidean_distance(point1, point2):
+# Função para calcular a distância euclidiana entre dois pontos -> √((x1 – x2)² + (y1 – y2)²)
+    # Calcula a distância euclidiana entre o 'point1' e o 'point2'
+        # o 'point1' será o ponto superior do olho e o 'point2' será o inferior
+    # Criamos um vetor de duas dimensões com as coordenadas 'x' e 'y' com 'np.array([x, y])
+def distancia_euclidiana(point1, point2):
     return np.linalg.norm(np.array([point1.x, point1.y]) - np.array([point2.x, point2.y]))
 
 
@@ -14,8 +17,8 @@ def are_eyes_closed(landmarks):
     right_eye_bottom = landmarks[374]
 
     # Distâncias euclidianas entre os pontos dos olhos
-    left_eye_distance = euclidean_distance(left_eye_top, left_eye_bottom)
-    right_eye_distance = euclidean_distance(right_eye_top, right_eye_bottom)
+    left_eye_distance = distancia_euclidiana(left_eye_top, left_eye_bottom)
+    right_eye_distance = distancia_euclidiana(right_eye_top, right_eye_bottom)
 
     # Limite para considerar o olho fechado (ajuste conforme necessário)
     eye_closed_threshold = 0.025
