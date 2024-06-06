@@ -42,38 +42,50 @@ while (webcam.isOpened()) and (not flag): # se a webcam estiver aberta e a flag 
     # Processando o frame como o modelo de malha facial do MediaPipe e guardando na variável;
     results = face_mesh.process(image)
 
-    # Deixando o frame editavel e convertendo de volta para BGR
+    # Deixando o frame editavel e convertendo de volta para BGR;
     image.flags.writeable = True
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-    if results.multi_face_landmarks:
+    # "multi_face_landmarks" gera uma lista de landmarks faciais detectados em um frame;
+    if results.multi_face_landmarks: # se essa lista tiver elementos;
+        # laço onde 'face_landmarks' será um elemento (que é o conjunto de landmarks) dessa lista;
         for face_landmarks in results.multi_face_landmarks:
-            # Desenhar a malha do rosto na imagem
+            # Desenhar a malha do rosto na imagem;
             mp_drawing.draw_landmarks(
-                image=image,
-                landmark_list=face_landmarks,
-                connections=mp_face_mesh.FACEMESH_TESSELATION,
-                landmark_drawing_spec=None,
-                connection_drawing_spec=mp_drawing_styles.get_default_face_mesh_tesselation_style())
+                # qual frame vamos desenhar os pontos chaves (landmarks);
+                image = image,
+                # qual a lista de landmarks que serão pontuados/desenhados na imagem;
+                landmark_list = face_landmarks,
+                # as ligações/conexões entre os landmarks;
+                connections = mp_face_mesh.FACEMESH_TESSELATION, # definimos que vamos usar todos as landmarks da malha facial;
+                # como desenhar os landmarks individuais;
+                    # setamos para None o que significa que todas as ligações desenhadas serão iguais (sem diferença de cor, largura, ...);
+                landmark_drawing_spec = None,
+                # como desenhar as conexões entre os lanmarks;
+                    # usamos as conexões da malha facial padrão do MediaPipe;
+                connection_drawing_spec = mp_drawing_styles.get_default_face_mesh_tesselation_style())
 
-            # Verificar se os olhos estão fechados
-            # É AQUI DENTRO QUE VAI FICAR O PROGRAMA DE TOCAR O ALARME!!
+            # Verificar se os olhos estão fechados usando a nossa função;
+            # É AQUI DENTRO QUE VAI FICAR O PROGRAMA DE TOCAR O ALARME!!;
             if of.if_eyes_closed(face_landmarks.landmark):
-                # print(of.if_eyes_closed(face_landmarks.landmark))
+                print(of.if_eyes_closed(face_landmarks.landmark)) # vai printar True se olhos estiverem fechados;
+                # isso aqui é so a palavra que ta escrita quando você liga a camera -> vamos tirar isso;
                 cv2.putText(image, 'Dormindo', (50, 50),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2, cv2.LINE_AA)
             else:
-                # print(of.if_eyes_closed(face_landmarks.landmark))
+                print(of.if_eyes_closed(face_landmarks.landmark)) # vai printar False se olhos estiverem abertos;
+                # isso aqui é so a palavra que ta escrita quando você liga a camera -> vamos tirar isso;
                 cv2.putText(image, 'Acordado', (50, 50),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
-    # Mostrar a imagem com as detecções
+    # Mostrar a imagem com as detecções;
     cv2.imshow('Detector de Sono ao Volante', image)
 
-    # Sair do loop ao pressionar 'Esc'
+    # Espera 5 milissegundos por uma tecla pressionada -> sai do loop se pressionado 'Esc';
     if cv2.waitKey(5) & 0xFF == 27:
         flag = True
 
-# Liberar a captura e fechar janelas
+# Liberar a captura de vídeo da webcam;
 webcam.release()
+# Fecha todas as janelas abertar pelo OpenCv;
 cv2.destroyAllWindows()
