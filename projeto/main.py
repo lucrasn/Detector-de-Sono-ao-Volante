@@ -92,7 +92,7 @@ while (webcam.isOpened()) and (not flag):
                     
                     #Cálculo para calcular o tempo decorrido desde que os olhos se fecharam
                     if current_time - start_time >= alarm_duration:
-                        play.play_sound("sound/alarm.mp3")
+                        play.play_sound("projeto/sound/alarm.mp3")
                         start_time  = 0
 
                 
