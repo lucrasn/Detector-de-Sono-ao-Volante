@@ -85,7 +85,7 @@
 
 ##Time (import time)
     Time é uma biblioteca padrão de Python oferece várias funcionalidades relacionadas ao tempo. As principais são manipulação de datas e horários e medição de tempo.
-        -Está sendo usada para adicionar um intervalo na função 'play_sound' evitando corromper o áudio.
+        -Está sendo usada para adicionar um intervalo (parando a execução) na função 'play_sound' evitando corromper o áudio.
 
 ### Funções no Código:
 

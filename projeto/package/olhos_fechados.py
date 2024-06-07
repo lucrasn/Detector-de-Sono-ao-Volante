@@ -19,11 +19,11 @@ def distancia_euclidiana(point1, point2):
 
 
 # Função para verificar se os olhos estão fechados
-    # Ficou em inglês o nome dessa função por que em português ia ficar "se_de_olhos_fechados" e eu achei feio
+    # Ficou em inglês o nome dessa função por que em português ia ficar "se_de_olhos_fechados" e eu achei feio (fica feio mesmo #Georis)
 def if_eyes_closed(landmarks):
     '''
     landmarks : pontos chaves da malha facial
-    retunr : retorna um valor booleano (olhos fechados == True e olhos abertos == False)
+    return : retorna um valor booleano (olhos fechados == True e olhos abertos == False)
     '''
 
     # estamos acessando o ponto referêncial da malha facial referente a cada parte do olho que será analisado
