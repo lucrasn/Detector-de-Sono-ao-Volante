@@ -65,13 +65,7 @@
         -Está sendo usada para contagem de tempo e reprodução do alarme, que será necessário no processamento de dados.
 
 ### Funções no Código:
-
-    -Contagem temporal: Conta o tempo passado quando o indivíduo fecha os olhos, após o tempo limite ser atingido, o alarme dispara.
-        start_time = pg.time.get_ticks() 
-        current_time = pg.time.get_ticks()
-        if current_time - start_time >= 10000:  # 10 segundos passados
-                    play_sound("alarm.mp3")
-    
+   
     -Tocar alarme: Toca um arquivo mp3 referente ao alarme, que após finalizado poderá ser tocado novamente.
         def play_sound(sound_file):
             pg.mixer.init()  
@@ -91,3 +85,14 @@
 
         -Adicionar intervalo: No loop usado para tocar o alarme um intervalo de 0.1 segundos é adicionado evitando possíveis problemas na reprodução.
             time.sleep(0.1)
+        
+        -Contagem temporal: Conta o tempo passado desde o fechar os olhos do inivíduo. Após o tempo limite ser atingido, o alarme dispara.
+             if  start_time == 0:
+                    start_time = time.time()
+                    
+            else:  
+                    current_time = time.time() 
+                    
+                    if current_time - start_time >= alarm_duration:
+                        play.play_sound("sound/alarm.mp3")
+                        start_time  = 0
